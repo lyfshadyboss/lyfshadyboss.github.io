@@ -1,3 +1,8 @@
-name: 刘义峰
+name: Blog Everything
 markdown: redcarpet
 pygments: true
+timezone: Asia/Shanghai
+
+sass:
+    sass_dir: _sass
+    style: :compressed
