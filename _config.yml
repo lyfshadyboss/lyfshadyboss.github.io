@@ -1,6 +1,6 @@
 name: Blog Everything
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 timezone: Asia/Shanghai
 
 sass:

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "安装 Fedora 系统"
-tag: fedora
+tags: Fedora
 ---
 
 下载 fedora iso 文件 ： [fedora project](http://fedoraproject.org/)
