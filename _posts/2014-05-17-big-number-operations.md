@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "大数运算算法"
-category: algorithm
+categories: jekyll algorithm
 tags: 算法
 ---
 

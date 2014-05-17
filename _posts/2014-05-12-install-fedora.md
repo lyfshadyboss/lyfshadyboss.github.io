@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "安装 Fedora 系统"
+categories: jekyll
 tags: Fedora
 ---
 

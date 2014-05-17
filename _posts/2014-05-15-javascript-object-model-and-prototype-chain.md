@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Javascript 对象模型和原型链"
-categories: programming javascript
+categories: jekyll programming javascript
 tags: Javascript
 ---
 
