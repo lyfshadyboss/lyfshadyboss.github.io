@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "宁静的美好"
-categories: mind
+categories: jekyll mind
 tags: Mind
 ---
 

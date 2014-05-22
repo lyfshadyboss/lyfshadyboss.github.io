@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "MarkDown(MD) 标签语法"
-categories: tools markdown
+categories: jekyll tools markdown
 tags: Tool Markdown
 ---
 

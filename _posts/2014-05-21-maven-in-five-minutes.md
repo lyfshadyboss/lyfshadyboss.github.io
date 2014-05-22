@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Apache Maven 快速预览"
-categories: tools maven
+categories: jekyll tools maven
 tags: Tool Maven
 ---
 
