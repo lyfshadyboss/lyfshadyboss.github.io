@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>POJ 1001 Exponentiation 题解</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- tags css -->
+    <link rel="stylesheet" href="/css/tag_cloud.css">
+
+</head>
+<body>
+
+<div class="site">
+    <div class="header">
+        <h1 class="title"><a href="/">Blog Everything</a></h1>
+        <a class="extra" href="/">主页</a>
+    </div>
+
+    <h2>POJ 1001 Exponentiation 题解</h2>
+<p class="meta">17 May 2014</p>
+
+<div class="post">
+    <h3>题意</h3>
+
+<p><a href="http://poj.org/problem?id=1001">poj 1001</a></p>
+
+<p>计算数的幂，A^B， A 为浮点数，B 为整数，其中 0.0 &lt; A &lt; 99.999， 0 &lt; B &lt; 25． 结果注意去除不必要的小数点和 0．</p>
+
+<h3>输入</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">95.123 12
+0.4321 20
+5.1234 15
+6.7592  9
+98.999 10
+1.0100 12
+</code></pre></div>
+<h3>输出</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">548815620517731830194541.899025343415715973535967221869852721
+.00000005148554641076956121994511276767154838481760200726351203835429763013462401
+43992025569.928573701266488041146654993318703707511666295476720493953024
+29448126.764121021618164430206909037173276672
+90429072743629540498.107596019456651774561044010001
+1.126825030131969720661201
+</code></pre></div>
+<h3>解法</h3>
+
+<p>首先这是一种大数乘法算法，参见 <a href="/jekyll/algorithm/2014/05/17/big-number-operations.html">大数运算算法</a>．</p>
+
+<p>要计算 A 的 B 次方，即 A * A * A * A * ...... (B 个 A　相乘)，用一个　while 循环來控制：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">result = 1;
+while(B &gt; 0) {
+    result = A * result;
+    B--;
+}
+</code></pre></div>
+<p>C++ 源码:</p>
+
+<div class="highlight"><pre><code class="c--"><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">string</span> <span class="n">a</span><span class="p">,</span> <span class="n">string</span> <span class="n">b</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">erase_point</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">size_t</span> <span class="n">point_loc</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">point_loc</span> <span class="o">!=</span> <span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">point_loc</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">point_loc</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="n">point_loc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">string</span> <span class="n">number</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">power</span><span class="p">;</span>
+
+  <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">number</span> <span class="o">&gt;&gt;</span> <span class="n">power</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">tmp</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">power</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">string</span> <span class="n">a</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">number</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">points_a</span> <span class="o">=</span> <span class="n">erase_point</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">points_tmp</span> <span class="o">=</span> <span class="n">erase_point</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+
+      <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+
+      <span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="n">points_a</span> <span class="o">-</span> <span class="n">points_tmp</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="n">points_a</span> <span class="o">-</span> <span class="n">points_tmp</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">result</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+      <span class="c1">// remove trailing zero</span>
+      <span class="k">if</span> <span class="p">((</span><span class="n">points_a</span> <span class="o">+</span> <span class="n">points_tmp</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">tmp</span><span class="p">[</span><span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span> <span class="o">?</span> <span class="n">tmp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">tmp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="n">power</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">tmp</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+
+    
+    <h3>标签 : </h3>
+    <p class="tags">
+        
+        <a href="/tags/算法/">算法</a>
+        
+        <a href="/tags/ACM/">ACM</a>
+        
+        <a href="/tags/POJ/">POJ</a>
+        
+    </p>
+    
+
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lyfblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+    <div class="footer">
+        <div class="contact">
+            <p>
+                YifengLiu<br/>
+                software engineer<br/>
+            </p>
+        </div>
+        <div class="contact">
+            <p>
+                <a href="https://github.com/lyfshadyboss">github.com/lyfshadyboss</a><br/>
+                <a href="https://twitter.com/lyfshadyboss">twitter.com/lyfshadyboss</a><br/>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
