@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "maven 快速预览"
+title: "Apache Maven 快速预览"
 categories: tools maven
-tags: tool maven
+tags: Tool Maven
 ---
 
 ### 安装
