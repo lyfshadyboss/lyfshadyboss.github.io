@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Fedora 下使用 Swap 分区</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- tags css -->
+    <link rel="stylesheet" href="/css/tag_cloud.css">
+
+</head>
+<body>
+
+<div class="site">
+    <div class="header">
+        <h1 class="title"><a href="/">Blog Everything</a></h1>
+        <a class="extra" href="/">主页</a>
+    </div>
+
+    <h2>Fedora 下使用 Swap 分区</h2>
+<p class="meta">23 May 2014</p>
+
+<div class="post">
+    <h3>Swap 的作用</h3>
+
+<p>Swap 类似于 Windows 下的虚拟内存，本质上是一块磁盘空间或仅仅是一个文件，当内存不够时，系统将内存中的一部分优先
+级较低的内容放到Swap 上，节省出一定的内存空间．这种特性在运行比较大的软件时很有用，避免了因内存不足而引起的程序
+崩溃．</p>
+
+<h3>创建并使用 Swap 分区</h3>
+
+<p>如果在安装系统时没有创建 Swap 分区，可以手动创建它：</p>
+
+<ol>
+<li>先划出一个分区，比如 /dev/sda9</li>
+<li><p>格式化</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkswap /dev/sda9
+</code></pre></div></li>
+<li><p>使用 swap</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">swapon /dev/sda9
+</code></pre></div></li>
+<li><p>将 swap 写入 <code>/etc/fstab</code>，系统启动时自动开启</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">查看 UUID
+blkid /dev/sda9
+=&gt; /dev/sda9: UUID=&quot;6f814ec3-c10d-4aa5-aa8e-58bcd7e6a740&quot; TYPE=&quot;swap&quot; PARTUUID=&quot;120044c5-09&quot;
+
+编辑 /etc/fstab，写入 swap 纪录
+echo UUID=6f814ec3-c10d-4aa5-aa8e-58bcd7e6a740      swap        swap        defaults    0   0
+</code></pre></div></li>
+<li><p>用 free 命令可以查看内存和 swap 的使用情况</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">free
+=&gt;
+             total       used       free     shared    buffers     cached
+Mem:       3884884    3699856     185028     265520      71616    1587796
+-/+ buffers/cache:    2040444    1844440
+Swap:      8191996       4200    8187796
+</code></pre></div></li>
+</ol>
+
+
+    
+    <h3>标签 : </h3>
+    <p class="tags">
+        
+        <a href="/tags/Fedora/">Fedora</a>
+        
+    </p>
+    
+
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lyfblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+    <div class="footer">
+        <div class="contact">
+            <p>
+                YifengLiu<br/>
+                software engineer<br/>
+            </p>
+        </div>
+        <div class="contact">
+            <p>
+                <a href="https://github.com/lyfshadyboss">github.com/lyfshadyboss</a><br/>
+                <a href="https://twitter.com/lyfshadyboss">twitter.com/lyfshadyboss</a><br/>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
