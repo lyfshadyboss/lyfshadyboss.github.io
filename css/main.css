@@ -187,6 +187,7 @@ h3, h4, h5, h6 {
 blockquote {
     padding-left: 40px;
     border-left: 5px #7d7d7d solid;
+    font-style: italic;
 }
 
 ol, ul {
