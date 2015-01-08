@@ -207,3 +207,7 @@ blockquote :after {
 ol, ul {
     -webkit-padding-start: 40px;
 }
+
+em {
+    font-weight: bold;
+}
