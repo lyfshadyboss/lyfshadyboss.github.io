@@ -4,7 +4,8 @@ locale: en_US
 description: 
 logo: site-logo.png
 search: true
-url: 
+url:
+comments: true
 
 # Jekyll configuration
 permalink:   /:categories/:title/

@@ -41,7 +41,8 @@
       </footer>
       <div class="entry-content">
         {{ content }}
-        {% if (site.owner.disqus-shortname and page.comments) or site.comments %}<div id="disqus_thread"></div><!-- /#disqus_thread -->{% endif %}
+        <!-- {% if (site.owner.disqus-shortname and page.comments) or site.comments %}<div id="disqus_thread"></div>{% endif %} -->
+        {% if page.comments or site.comments %}{% include duoshuo-comment.html %}{% endif %}
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
@@ -61,7 +62,7 @@
   </footer>
 </div><!-- /.footer-wrapper -->
 
-{% include scripts.html %}	        
+{% include scripts.html %}
 
 </body>
 </html>
