@@ -1,30 +1,15 @@
+---
+sitemap: false
+---
 [
-	
+	{% for post in site.posts %}
 		{
-		  "title"      : "Ruby 元编程 - Part I [草稿]",
-		  "category"   : "",
-      "tags"       : "Ruby",
-		  "url"        : "/articles/meta-programming-ruby/",
-		  "date"       : "2014-05-23 00:00:00 +0800",
-		  "shortdate"  : "May 23, 2014"
-		} ,
-	
-		{
-		  "title"      : "大数运算算法",
-		  "category"   : "",
-      "tags"       : "Algorithm",
-		  "url"        : "/articles/big-number-operations/",
-		  "date"       : "2014-05-17 00:00:00 +0800",
-		  "shortdate"  : "May 17, 2014"
-		} ,
-	
-		{
-		  "title"      : "Javascript 对象模型和原型链",
-		  "category"   : "",
-      "tags"       : "Javascript",
-		  "url"        : "/articles/javascript-object-model-and-prototype-chain/",
-		  "date"       : "2014-05-15 00:00:00 +0800",
-		  "shortdate"  : "May 15, 2014"
-		} 
-	
+		  "title"      : "{{ post.title | escape }}",
+		  "category"   : "{{ post.category }}",
+      "tags"       : "{{ post.tags | array_to_sentence_string }}",
+		  "url"        : "{{ site.url }}{{ post.url }}",
+		  "date"       : "{{ post.date }}",
+		  "shortdate"  : "{{ post.date | date: '%B %d, %Y' }}"
+		} {% unless forloop.last %},{% endunless %}
+	{% endfor %}
 ]
