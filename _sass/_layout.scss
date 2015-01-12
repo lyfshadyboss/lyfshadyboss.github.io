@@ -253,7 +253,7 @@ span + .entry-title {
 		color: $text-color; 
 	}
 	@include media($large) {
-		@include span-columns(2.5);
+		@include span-columns(1.8);
 	}
 	& > span {
 		padding: 0 20px 10px 0;
@@ -283,7 +283,7 @@ span + .entry-title {
 		margin-top: 0;
 	}
 	@include media($large) {
-		@include span-columns(9.5);
+		@include span-columns(10.2);
 	}
 	p > a,
 	li > a {
