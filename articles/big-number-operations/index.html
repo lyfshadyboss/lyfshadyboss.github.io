@@ -5,15 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Latest Posts &#8211; Simple</title>
-<meta name="description" content="A simple and clean responsive Jekyll theme for words and photos.">
-
+<title>大数运算算法 &#8211; Simple</title>
+<meta name="description" content="">
+<meta name="keywords" content="Algorithm">
 
 
 
 <!-- Twitter Cards -->
-<meta name="twitter:title" content="Latest Posts">
-<meta name="twitter:description" content="A simple and clean responsive Jekyll theme for words and photos.">
+<meta name="twitter:title" content="大数运算算法">
+<meta name="twitter:description" content="">
 
 
 
@@ -23,16 +23,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Latest Posts">
-<meta property="og:description" content="A simple and clean responsive Jekyll theme for words and photos.">
-<meta property="og:url" content="/">
+<meta property="og:title" content="大数运算算法">
+<meta property="og:description" content="">
+<meta property="og:url" content="/articles/big-number-operations/">
 <meta property="og:site_name" content="Simple">
 
 
 
 
 
-<link rel="canonical" href="/">
+<link rel="canonical" href="/articles/big-number-operations/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Simple Feed">
 
 
@@ -73,7 +73,7 @@
 
 </head>
 
-<body id="page">
+<body id="post">
 
 <div class="navigation-wrapper">
 	<nav role="navigation" id="site-nav" class="animated drop">
@@ -122,24 +122,70 @@
 <div class="js-menu-screen menu-screen"></div>
 
 <div id="main" role="main">
-  <article class="entry">
+  <article class="hentry">
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <h1 class="entry-title">Latest Posts</h1>
+        <span class="entry-tags"><a href="/tags/#Algorithm" title="Pages tagged Algorithm">Algorithm</a></span>
+        
+          <h1 class="entry-title">大数运算算法</h1>
+        
       </header>
+      <footer class="entry-meta">
+        
+        
+        
+          <img src="/images/avatar.jpg" class="bio-photo" alt="YiFeng Liu bio photo"></a>
+        
+        <span class="author vcard">By <span class="fn">YiFeng Liu</span></span>
+        <span class="entry-date date published"><time datetime="2014-05-17T00:00:00+08:00"><i class="fa fa-calendar-o"></i> May 17, 2014</time></span>
+        
+        
+        
+        
+      </footer>
       <div class="entry-content">
-        <ul class="post-list">
- 
-  <li><article><a href="/articles/meta-programming-ruby/">Ruby 元编程 - Part I [草稿] <span class="entry-date"><time datetime="2014-05-23T00:00:00+08:00">May 23, 2014</time></span></a></article></li>
- 
-  <li><article><a href="/articles/big-number-operations/">大数运算算法 <span class="entry-date"><time datetime="2014-05-17T00:00:00+08:00">May 17, 2014</time></span></a></article></li>
- 
-  <li><article><a href="/articles/javascript-object-model-and-prototype-chain/">Javascript 对象模型和原型链 <span class="entry-date"><time datetime="2014-05-15T00:00:00+08:00">May 15, 2014</time></span></a></article></li>
+        <h3 id="section">大数乘法</h3>
+<p><img src="/images/number_multiply.png" alt="数字乘法运算过程" /></p>
 
-</ul>
+<p>如图所示，数字乘法运算可以将被乘数与乘数看成是两个整数数组，分别记为 A， B，结果也是一个整数数组，记为C．将 A 的第
+i 位乘以 B 的第 j 位，结果存放在 C 的第 i + j -1 位．然后对 C 进行进位操作．</p>
+
+<p>当两个大数相乘时，普通的数据类型已经无法表示结果，就需要模拟数字运算过程，算法为：</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">string</span> <span class="n">a</span><span class="p">,</span> <span class="n">string</span> <span class="n">b</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+      <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<h3 id="section-1">大数除法</h3>
+<pre><code>// TODO ### 大数加减法
+//TODO
+</code></pre>
+
+        
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/articles/javascript-object-model-and-prototype-chain/" class="btn" title="Javascript 对象模型和原型链">Previous</a>
+      
+      
+        <a href="/articles/meta-programming-ruby/" class="btn" title="Ruby 元编程 - Part I [草稿]">Next</a>
+      
+    </nav><!-- /.pagination -->
   </article>
 </div><!-- /#main -->
 
@@ -208,7 +254,7 @@
 
 
 
-          
+	        
 
 </body>
 </html>
