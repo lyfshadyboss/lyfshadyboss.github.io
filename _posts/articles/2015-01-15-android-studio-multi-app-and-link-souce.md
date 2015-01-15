@@ -3,7 +3,7 @@ layout: post
 title: "在 Android Studio 中管理多个 module， 以及 module 之间 link source"
 excerpt: ""
 categories: articles
-tags: Android Studio
+tags: [Android Studio]
 ---
 
 ### Android Project 和 Module
@@ -23,14 +23,16 @@ tags: Android Studio
   修改 `build.gradle` :
   
 * application module
-  {% highlight  groovy %}
-  apply plugin: 'com.android.application'
-  {% endhighlight %}
+
+    {% highlight  groovy %}
+    apply plugin: 'com.android.application'
+    {% endhighlight %}
   
 * library module
-  {% highlight  groovy %}
-  apply plugin: 'com.android.library'
-  {% endhighlight %}
+
+    {% highlight  groovy %}
+    apply plugin: 'com.android.library'
+    {% endhighlight %}
 
 ### module 之间 link source
 Eclipse 里，可以很方便的建立一个 `source link` 将工程外的源码目录加入编译，在 Android Studio 中想要完成类似的任务呢？ 比如现有 3 个
@@ -57,17 +59,17 @@ setting` 里操作：
 
 可以修改其他 module 的 `build.gradle` 将 engine 的 src 加入编译过程，达到共享的目的。
 
-    {% highlight groovy %}
-    android {
-        ...
-    
-        sourceSets {
-            main.java.srcDirs += 'src/../../engine/src/main/java/'
-        }
-        
-        ...
+{% highlight groovy %}
+android {
+    ...
+
+    sourceSets {
+        main.java.srcDirs += 'src/../../engine/src/main/java/'
     }
-    {% endhighlight %}
+    
+    ...
+}
+{% endhighlight %}
     
 各个 `application module` 之间都可以使用这种方式共享。
     
