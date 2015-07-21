@@ -330,5 +330,5 @@ child.clearAnimation();
 
 在适当的地方调用 *clearDisappearingChildren* 是目前较好的解决方法.
 
-关于 MAT 工具的使用，可以参考官方教程，或者参考我以前的一篇总结(几年前用 emacs org mode 写过不少文档，都没整理过，被同事原创了...) :
+关于 MAT 工具的使用，可以参考官方教程，或者参考我以前的一篇总结(被同事原创了...) :
 [Eclipse MAT 的使用](http://blog.csdn.net/aaa2832/article/details/19419679).
