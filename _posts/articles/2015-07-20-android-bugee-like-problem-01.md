@@ -332,3 +332,5 @@ child.clearAnimation();
 
 关于 MAT 工具的使用，可以参考官方教程，或者参考我以前的一篇总结(被同事原创了...) :
 [Eclipse MAT 的使用](http://blog.csdn.net/aaa2832/article/details/19419679).
+
+demo 源码地址 : [Test 07](https://github.com/lyfshadyboss/android-demo-playground/tree/master/test)
