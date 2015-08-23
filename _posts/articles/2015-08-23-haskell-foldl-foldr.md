@@ -62,8 +62,8 @@ myFoldl (+) 0 (1:2:3:[])
           == step1 1 (step2 2 (foldr step3 id (3:[]))) 0
           == step1 1 (step2 2 (step3 3 (foldr step4 id []))) 0
           == step1 1 (step2 2 (step3 3 id)) 0
-          == step2 2 (step3 3 id) ((+1) 0 1)
-          == step3 3 id ((+1) ((+1) 0 1) 2)
-          == id ((+1) ((+1) ((+1) 0 1) 2) 3)
-          == ((+1) ((+1) ((+1) 0 1) 2) 3)
+          == step2 2 (step3 3 id) (+ 0 1)
+          == step3 3 id (+ (+ 0 1) 2)
+          == id (+ (+ (+ 0 1) 2) 3)
+          == (+ (+ (+ 0 1) 2) 3)
 {% endhighlight %}
