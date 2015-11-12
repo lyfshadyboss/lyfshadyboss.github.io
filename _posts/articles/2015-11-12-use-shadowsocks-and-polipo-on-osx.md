@@ -6,7 +6,7 @@ categories: articles
 tags: [Shadowsocks]
 ---
 
-用 [Shadowsocks](www.shadowsocks.com) 可以方便的翻墙，但终端使用 npm 等工具时还是不能下载受限内容，虽然可以用 VPN 来实现全局自由，不过
+用 [Shadowsocks](http://www.shadowsocks.com) 可以方便的翻墙，但终端使用 npm 等工具时还是不能下载受限内容，虽然可以用 VPN 来实现全局自由，不过
 配合 polipo 就可以利用 Shadowsocks 服务了。
 
 
