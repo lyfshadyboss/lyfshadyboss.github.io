@@ -45,7 +45,7 @@
         <section>
             <h1>Java Annotation</h1>
 
-            <h3>基础知识介绍 & ButterKnife 实现和应用</h3>
+            <h3>基础知识介绍 & ButterKnife 的应用与实现</h3>
 
             <p>
                 <small>Created by <a href="http://shadyboss.cn">liuyifeng</a> @2016 March
@@ -58,7 +58,7 @@
         </section>
 
         <section>
-            <p> "A form of metadata, provide data about a program that is not part of the program itself.</p>
+            <p> "A form of metadata, provide data about a program that is not part of the program itself."</p>
 
             <p align="right" style="color:steelblue">oracle java documentation</p>
         </section>
@@ -76,7 +76,7 @@
         </section>
 
         <section class="fragment">
-            <p>类、方法、变量、参数、包都可以被注解</p>
+            <p>包、类、方法、变量、参数都可以被注解</p>
             <p>注：JAVA 8 又引入了 type annotations。JAVA 8 以前，注解只能用在声明，JAVA 8 以后，任何使用类型的地方都可以使用注解</p>
         </section>
 
@@ -97,7 +97,7 @@
                 <ul>
                     <li>用 @interface 表示一个 annotation</li>
                     <li>配置项名为方法名，且方法无参数，无方法体</li>
-                    <li>返回值为基本类型, String, Class, annotation, enum 或者他们的一维数组</li>
+                    <li>返回值为基本类型, String, Class, annotation, enum 或者它们的一维数组</li>
                     <li>可以用 default 来声明默认值</li>
                 </ul>
             </section>
@@ -224,7 +224,7 @@ public void doPeriodicCleanup() { ... }
                 <pre><code class="hljs" data-trim contenteditable>
 @SupportedAnnotationTypes({"com.lyf.annotation.PrintMe"})
 public class MyProcessor extends AbstractProcessor {
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
+    public boolean process(Set< ? extends TypeElement > annotations, RoundEnvironment env) {
         Messager messager = processingEnv.getMessager();
         for (TypeElement te : annotations) {
             for (Element e : env.getElementsAnnotatedWith(te)) {
