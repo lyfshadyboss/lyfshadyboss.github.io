@@ -47,7 +47,7 @@
             <h3>基础知识介绍 & ButterKnife 实现和应用</h3>
 
             <p>
-                <small>Created by <a href="http://shadyboss.cn">liuyifeng</a>
+                <small>Created by <a href="http://shadyboss.cn">liuyifeng</a> @2016 March
                 </small>
             </p>
         </section>
@@ -59,7 +59,260 @@
         <section>
             <p> "A form of metadata, provide data about a program that is not part of the program itself.</p>
 
-            <p align="right" style="color:steelblue">--oracle java documentation</p>
+            <p align="right" style="color:steelblue">oracle java documentation</p>
+        </section>
+
+        <section>
+            <h3>Annotation 的作用</h3>
+            <h4>中文名一般称为 “注解”</h4>
+            <ul>
+                <li class="fragment">给编译器提供信息，如检查错误</li>
+
+                <li class="fragment">编译过程期处理，如代码生成</li>
+
+                <li class="fragment">运行时处理，动态的控制程序的行为</li>
+            </ul>
+        </section>
+
+        <section class="fragment">
+            <p>类、方法、变量、参数、包都可以被注解</p>
+            <p>注：JAVA 8 又引入了 type annotations。JAVA 8 以前，注解只能用在声明，JAVA 8 以后，任何使用类型的地方都可以使用注解</p>
+        </section>
+
+        <section data-background="#dddddd">
+            <section>
+                <h3>Annotation Basics</h3>
+            </section>
+
+            <section>
+                <h2>格式</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+@interface Annotation {
+    String des() default "";
+    int value() default 0;
+}
+                </code></pre>
+
+                <ul>
+                    <li>用 @interface 表示一个 annotation</li>
+                    <li>配置项名为方法名，且方法无参数，无方法体</li>
+                    <li>返回值为基本类型, String, Class, annotation, enum 或者他们的一维数组</li>
+                    <li>可以用 default 来声明默认值</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>不带参数，可以省略括号</h4>
+				<pre><code class="hljs" data-trim contenteditable>
+@Entity
+...
+                </code></pre>
+
+                <pre><code class="hljs" data-trim contenteditable>
+@Override
+void mySuperMethod() { ... }
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>带参数，分别赋值</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+@SuppressWarnings(value = "unchecked")
+void myMethod() { ... }
+
+或者
+
+@SuppressWarnings("unchecked")
+void myMethod() { ... }
+                </code></pre>
+
+                <pre><code class="hljs" data-trim contenteditable>
+@Author(
+    name = "Benjamin Franklin",
+    date = "3/27/2003"
+)
+class MyClass() { ... }
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>内置的 annotations</h2>
+                <ul>
+                    <li>@Deprecated</li>
+                    <li>@Override</li>
+                    <li>@SuppressWarnings</li>
+                    <li>@SafeVarargs (JAVA 7)</li>
+                    <li>@FunctionalInterface (JAVA 8)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>元注解</h2>
+                <h3>修饰注解的注解称为元注解 (Meta Annotation)</h3>
+                <ul>
+                    <li>@Retention</li>
+                    <li>@Documented</li>
+                    <li>@Target</li>
+                    <li>@Inherited</li>
+                    <li>@Repeatable</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>@Retention</h2>
+                <p>表示注解的存储规则</p>
+                <ul>
+                    <li>RetentionPolicy.SOURCE <br>
+                        存在 source code 级别，在 class 和 runtime 级别丢弃</li>
+                    <li>RetentionPolicy.CLASS <br>
+                        存在 source code 和 class 级别，在 runtime 级别丢弃</li>
+                    <li>RetentionPolicy.RUNTIME <br>
+                        存在 source code , class 和 runtime 级别</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>@Documented</h2>
+                <p>是否被 javadoc 纪录，默认不纪录</p>
+            </section>
+
+            <section>
+                <h2>@Target</h2>
+                <p>指明注解修饰的类型</p>
+                <ul>
+                    <li>ElementType.ANNOTATION_TYPE</li>
+                    <li>ElementType.CONSTRUCTOR</li>
+                    <li>ElementType.FIELD</li>
+                    <li>ElementType.LOCAL_VARIABLE</li>
+                    <li>ElementType.METHOD</li>
+                    <li>ElementType.PACKAGE</li>
+                    <li>ElementType.PARAMETER</li>
+                    <li>ElementType.TYPE</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>@Inherited</h2>
+                <p>是否可以继承，默认为 false。意思是当一个类查询是否具有某个注解时，如果没有，可以从父类中寻找，仅修饰 class</p>
+            </section>
+
+            <section>
+                <h2>@Repeatable</h2>
+                <p>JAVA 8 引入的，是否可以重复使用</p>
+
+                <pre><code class="hljs" data-trim contenteditable>
+@Schedule(dayOfMonth="last")
+@Schedule(dayOfWeek="Fri", hour="23")
+public void doPeriodicCleanup() { ... }
+                </code></pre>
+            </section>
+        </section>
+
+        <section data-background="#4d7e65">
+            <section>
+                <h2>处理 annotation</h2>
+            </section>
+
+            <section>
+                <h2>编译期处理</h2>
+                <p>自定义注解处理器 (annotation processor) 处理编译期间的注解</p>
+            </section>
+
+            <section>
+                <h2>自定义注解处理器</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+@SupportedAnnotationTypes({"com.lyf.annotation.PrintMe"})
+public class MyProcessor extends AbstractProcessor {
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
+        Messager messager = processingEnv.getMessager();
+        for (TypeElement te : annotations) {
+            for (Element e : env.getElementsAnnotatedWith(te)) {
+                messager.printMessage(Diagnostic.Kind.NOTE, "Printing: " + e.toString());
+            }
+        }
+        return true;
+}
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>运行期处理</h2>
+                <p>利用 JAVA 的反射机制，获取注解信息，动态的进行特定的操作</p>
+            </section>
+
+            <section>
+                <h2>TODO</h2>
+            </section>
+        </section>
+
+        <section data-background="#b5533c">
+            <section>
+                <h2>实例：注解处理器的使用和调试方法</h2>
+            </section>
+
+            <section>
+                <h2>xx.java</h2>
+                TODO
+            </section>
+
+            <section>
+                <h2>xx.java</h2>
+                TODO
+            </section>
+
+            <section>
+                <h2>编译并处理注解</h2>
+                TODO cmd
+            </section>
+
+            <section>
+                <h2>OUTPUT</h2>
+                TODO
+            </section>
+
+            <section>
+                <h2>开启调试功能</h2>
+                TODO -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+            </section>
+            <section>
+                <h2>远程调试代码</h2>
+            </section>
+
+            <section>
+                <h2>Gradle 项目中的调试方法</h2>
+                TODO
+            </section>
+        </section>
+
+        <section>
+            <h2>Butter Knife 介绍使用</h2>
+
+
+        </section>
+
+        <section>
+            <h2>Butter Knife 原理分析</h2>
+        </section>
+
+        <section>
+            <h2>参考文档</h2>
+            <ul>
+                <li><a>https://docs.oracle.com/javase/tutorial/java/annotations/index.html</a></li>
+                <li><a>http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/javac.html</a></li>
+                <li><a>https://docs.gradle.org/current/userguide/build_environment.html</a></li>
+                <li><a>http://stackoverflow.com/questions/3107970/how-do-different-retention-policies-affect-my-annotations</a></li>
+                <li><a>http://stackoverflow.com/questions/15268057/where-does-bytecode-injection-happen</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>THANK YOU!</h1>
         </section>
     </div>
 
