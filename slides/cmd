@@ -1,0 +1,5 @@
+
+functionn enableGradleDebug() { export GRADLE_OPTS="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"; }
+
+function disableGradleDebug() { export GRADLE_OPTS="";}
+
