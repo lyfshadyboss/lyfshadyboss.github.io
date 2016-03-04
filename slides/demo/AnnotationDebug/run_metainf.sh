@@ -1,4 +1,4 @@
 #!/bin/sh
 
-javac MyProcessor.java
+javac -proc:none MyProcessor.java
 javac -cp . Main.java
