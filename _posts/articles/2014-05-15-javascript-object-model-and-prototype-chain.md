@@ -8,7 +8,7 @@ tags: Javascript
 
 ![prototype chain](/images/javascript-object-layout.jpg)
 
-###重点
+### 重点
 
 * Mozilla/Konqueror/Chrome 中， 对象都有一个属性叫 `__proto__`，这个属性串起了整个原型链
 
