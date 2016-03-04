@@ -248,7 +248,22 @@ public class MyProcessor extends AbstractProcessor {
             </section>
 
             <section>
-                <h2>TODO</h2>
+                <h2>运行期获取注解信息</h2>
+                <ul>
+                    <li>
+                        getAnnotation(Class< A > annotationType)
+                    </li>
+                    <li>
+                        getAnnotations()
+                    </li>
+                    <li>
+                        getDeclaredAnnotations()
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                参见 demo/TableCreator 实例
             </section>
         </section>
 
@@ -258,47 +273,149 @@ public class MyProcessor extends AbstractProcessor {
             </section>
 
             <section>
-                <h2>xx.java</h2>
-                TODO
+                <h2>OverView</h2>
+
+                <img src="image/annotation-overview.png">
             </section>
 
             <section>
-                <h2>xx.java</h2>
-                TODO
+                <h2>Java Compile Process</h2>
+                <img src="image/java-compile-process.png">
+            </section>
+
+            <section>
+                <h2>Show Time</h2>
+            </section>
+
+            <section>
+                <h2>PrintMe.java</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+@Retention(RetentionPolicy.SOURCE)
+    public @interface PrintMe {
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>MyProcessor.java</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+@SupportedAnnotationTypes({"PrintMe"})
+public class MyProcessor extends AbstractProcessor {
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
+        Messager messager = processingEnv.getMessager();
+        for (TypeElement te : annotations) {
+            for (Element e : env.getElementsAnnotatedWith(te)) {
+                messager.printMessage(Diagnostic.Kind.NOTE, "Printing: " + e.toString());
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+}
+                </code></pre>
             </section>
 
             <section>
                 <h2>编译并处理注解</h2>
-                TODO cmd
+                <pre><code class="highlight-green" data-trim contenteditable>
+#!/bin/sh
+
+javac MyProcessor.java
+javac -cp . -processor MyProcessor Main.java
+                </code></pre>
             </section>
 
             <section>
                 <h2>OUTPUT</h2>
-                TODO
+                <pre><code class="highlight-green" data-trim contenteditable>
+                    注: Printing: main(java.lang.String[])
+                </code></pre>
+            </section>
+            
+            <section>
+                <h2>利用 META-INF 信息指定注解处理器</h2>
+                <img src="image/annotation-debug-demo-output.png">
+                <pre><code class="highlight-green" data-trim contenteditable>
+#!/bin/sh
+
+javac MyProcessor.java
+javac -cp . Main.java
+                </code></pre>
             </section>
 
             <section>
                 <h2>开启调试功能</h2>
-                TODO -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+                <pre><code class="highlight-green" data-trim contenteditable>
+#!/bin/sh
+
+javac MyProcessor.java
+javac -J-Xdebug -J-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 Main.java
+                </code></pre>
             </section>
             <section>
-                <h2>远程调试代码</h2>
+                <h2>远程调试配置</h2>
+                <img src="image/annotation-debug-configuration.png">
+            </section>
+
+            <section>
+                <h2>下断点，开启编译过程，然后挂载调试</h2>
+                <img src="image/annotation-debug-attach.png">
             </section>
 
             <section>
                 <h2>Gradle 项目中的调试方法</h2>
-                TODO
+                <pre><code class="highlight-green" data-trim contenteditable>
+export GRADLE_OPTS="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+./gradlew clean
+./gradlew assembleDebug
+                </code></pre>
+
+                <p>挂载远程调试器，原理同上</p>
             </section>
         </section>
 
         <section>
-            <h2>Butter Knife 介绍使用</h2>
+            <section>
+                <h2>Butter Knife 介绍使用</h2>
+                <a>http://jakewharton.github.io/butterknife/</a>
+            </section>
 
-
+            <section>
+                <h2>Butter Knife 与其他注解处理器共存的情况</h2>
+                <h3>修改 build.gradle</h3>
+                <pre><code class="highlight-green" data-trim contenteditable>
+android {
+    ....
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+                </code></pre>
+            </section>
         </section>
 
         <section>
-            <h2>Butter Knife 原理分析</h2>
+            <section>
+                <h2>Butter Knife 原理分析</h2>
+            </section>
+
+            <section>
+                <h2>概要</h2>
+                <ol>
+                    <li>分析输入的 JAVA 文件</li>
+                    <li>生成 XX$$ViewBinder.java 原文件</li>
+                    <li>ButterKnife.bind(target) 执行真正的绑定，调用的是上一步中生成的代码的方法</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>性能</h2>
+                <p>Android 的性能瓶颈为反射机制，在 ButterKnife 生成的代码里，没有利用反射的地方，所以性能没有问题</p>
+            </section>
         </section>
 
         <section>
