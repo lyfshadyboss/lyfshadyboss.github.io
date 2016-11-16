@@ -43,11 +43,11 @@
     <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
         <section>
-            <h3>携程技术晋升工作陈述</h3>
+            <h3>携程技术部门晋升工作陈述</h3>
 
             <p>
                 <small>
-                    2016/11/13<br/>
+                    2016/11/16<br/>
                     机票BU<br/>
                     Android 开发工程师 刘义峰
                 </small>
@@ -59,7 +59,7 @@
                 <h3>个人简历</h3>
 
                 <p>
-                    5 年多工作经历，主要是前端开发，热衷于用技术创造价值
+                    毕业于 11 年，至今 5 年多工作经历，主要工作是前端开发(pc & mobile)，热衷于用技术创造价值
                 </p>
             </section>
 
@@ -108,9 +108,9 @@
 
             <section>
                 <h4>RN 接送机</h4>
-                <img style="height:500px; border:none" src="image/ctrip-rn-flight-train-01.jpg"/>
-                <img style="height:500px; border:none" src="image/ctrip-rn-flight-train-01.jpg"/>
-                <img style="height:500px; border:none" src="image/ctrip-rn-flight-train-01.jpg"/>
+                <img style="height:500px; border:none" src="image/ctrip-rn-flight-usecar-01.png"/>
+                <img style="height:500px; border:none" src="image/ctrip-rn-flight-usecar-02.png"/>
+                <img style="height:500px; border:none" src="image/ctrip-rn-flight-usecar-03.png"/>
             </section>
 
             <section>
@@ -148,17 +148,131 @@
 
         <section>
             <section>
+                <h3>RCA及分享</h3>
+            </section>
+
+            <section>
+                <h4>1. Android 5.0 以上系统部分背景色异常消失</h4>
+                <p class="fragment">
+                    概述：
+                    V6.6 版本，需要适配 Android 5.0 以上系统，运行发现机票页面大部分白色背景变黑
+                </p>
+
+                <p class="fragment">
+                    分析及解决方法：
+                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-02/">http://shadyboss.cn/articles/android-bugee-like-problem-02/</a>
+                </p>
+            </section>
+
+            <section>
+                <h4>2. 列表页 Animation 动画残留</h4>
+                <p class="fragment">
+                    概述：
+                    V6.8 版本，主流程动画重构后，填写页满仓返回列表页刷新时会有动画残留现象
+                </p>
+
+                <p class="fragment">
+                    分析及解决方法：
+                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-01/">http://shadyboss.cn/articles/android-bugee-like-problem-01/</a>
+                </p>
+            </section>
+
+            <section>
+                <h4>3. Java Annotation 的介绍</h4>
+                <p class="fragment">
+                    <a href="http://shadyboss.cn/articles/java-annotation-intro/">
+                        http://shadyboss.cn/articles/java-annotation-intro/</a>
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>用户体验改进</h3>
+            </section>
+
+            <section>
+                <h4>1. 完成页的重构</h4>
+                <p class="fragment">
+                    引入流畅的动画交互，改善了用户体验，多版面的设计，为FIO营销留下了位置。
+                </p>
+
+                <embed class="fragment" style="width:500px; height:500px;" src="video/ctrip-flight-result-page.swf"
+                       quality=high wmode=transparent type='application/x-shockwave-flash'>
+            </section>
+
+            <section>
+                <h4>2. 主流程动画重构</h4>
+                <p class="fragment">
+                    主流程国内国际引入转场动画，实现更平滑的过渡效果
+                </p>
+
+                <video class="fragment" style="height:500px" src="video/ctrip-flight-transition.mov"
+                       controls="controls">
+                    您的浏览器不支持 video 标签。
+                </video>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>技术提升</h3>
+            </section>
+
+            <section>
+                <h4>1. 国际接送机转 RN</h4>
+                <p class="fragment">
+                    V6.20 开始，国际接送机尝试 RN
+                </p>
+
+                <ul class="fragment">
+                    <li>接送机填写页面</li>
+                    <li>接送机地址选择页面</li>
+                    <li>接送机车型选择页面</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>2016-11-12 接送机填写页面 PV</h4>
+                <img style="border:none" src="image/ctrip-rn-flight-usecar-pv-01.png"/>
+            </section>
+
+            <section>
+                <h4>2016-11-12 接送机地址选择页面 PV</h4>
+                <img style="border:none" src="image/ctrip-rn-flight-usecar-pv-02.png"/>
+            </section>
+
+            <section>
+                <h4>2016-11-12 接送机车型选择页面 PV</h4>
+                <img style="border:none" src="image/ctrip-rn-flight-usecar-pv-03.png"/>
+            </section>
+
+            <section>
+                <h4>2. RN 空铁列表页重构</h4>
+                <p>
+                    提升 RN 空铁列表页的体验
+                </p>
+                <ul class="fragment">
+                    <li>解耦列表页各组件的接口</li>
+                    <li>提示筛选组件的扩展性</li>
+                    <li>优化列表页数据量巨大时的刷新速度，<br/>由 2s ~ 5s 左右降至 100ms ~ 200 ms</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
                 <h3>后续工作</h3>
             </section>
 
             <section>
-                <h3>深入RN开发</h3>
-                <p></p>
+                <h4>深入RN开发</h4>
+                <p>分析 Android 版本 React Native 的实现原理，为深入优化 RN 性能作铺垫</p>
             </section>
 
             <section>
-                <h3>RN实践经验的分享</h3>
-                <p></p>
+                <h4>RN实践经验的分享</h4>
+                <p>分享RN实践中遇到的坑点和收获</p>
             </section>
         </section>
 
