@@ -70,17 +70,13 @@
                     在 <a href="http://www.linpus.com">www.linpus.com</a> 实习和工作，主要工作是交互式 GUI 应用，涉及的平台包括 Meego, Web,
                     Android
                 </p>
-            </section>
 
-            <section>
                 <h4>14年~15年</h4>
 
                 <p>
                     进入 <a href="http://www.droi.com">www.droi.com</a> 工作，开发ROM中自定义的桌面应用部分
                 </p>
-            </section>
 
-            <section>
                 <h4>15年～至今</h4>
 
                 <p>
@@ -124,66 +120,12 @@
         <section>
             <section>
                 <h3>主要工作</h3>
-            </section>
-
-            <section>
-                <h4>无线App主版本开发</h4>
-                <p>v6.5 ~ v6.21 期间，首页到完成页，国内，国际，X 产品需求都涉及，保持在较低的故障率</p>
-            </section>
-
-            <section>
-                <h4>主流程动画重构</h4>
-                <p>重新实现了从首页到完成页的转场动画</p>
-            </section>
-
-            <section>
-                <h4>配合BI搭建新的埋点结构</h4>
-                <p>实现主流程页面的 trace 埋点，为BI分析提供数据支持</p>
-            </section>
-
-            <section>
-                <h4>尝试RN技术重构业务</h4>
-                <p>国际接送机业务，国内空铁列表页</p>
-            </section>
-        </section>
-
-        <section>
-            <section>
-                <h3>RCA及分享</h3>
-            </section>
-
-            <section>
-                <h4>1. Android 5.0 以上系统部分背景色异常消失</h4>
-                <p class="fragment">
-                    概述：
-                    V6.6 版本，需要适配 Android 5.0 以上系统，运行发现机票页面大部分白色背景变黑
-                </p>
-
-                <p class="fragment">
-                    分析及解决方法：
-                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-02/">http://shadyboss.cn/articles/android-bugee-like-problem-02/</a>
-                </p>
-            </section>
-
-            <section>
-                <h4>2. 列表页 Animation 动画残留</h4>
-                <p class="fragment">
-                    概述：
-                    V6.8 版本，主流程动画重构后，填写页满仓返回列表页刷新时会有动画残留现象
-                </p>
-
-                <p class="fragment">
-                    分析及解决方法：
-                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-01/">http://shadyboss.cn/articles/android-bugee-like-problem-01/</a>
-                </p>
-            </section>
-
-            <section>
-                <h4>3. Java Annotation 的介绍</h4>
-                <p class="fragment">
-                    <a href="http://shadyboss.cn/articles/java-annotation-intro/">
-                        http://shadyboss.cn/articles/java-annotation-intro/</a>
-                </p>
+                <ul>
+                    <li>v6.5 ~ v6.21 期间，首页到完成页，国内，国际，X 产品需求都涉及，保持在较低的故障率</li>
+                    <li>重新实现了从首页到完成页的转场动画</li>
+                    <li>实现主流程页面的 trace 埋点，为BI分析提供数据支持</li>
+                    <li>国际接送机业务，国内空铁列表页</li>
+                </ul>
             </section>
         </section>
 
@@ -194,21 +136,21 @@
 
             <section>
                 <h4>1. 完成页的重构</h4>
-                <p class="fragment">
+                <p>
                     引入流畅的动画交互，改善了用户体验，多版面的设计，为FIO营销留下了位置。
                 </p>
 
-                <embed class="fragment" style="width:500px; height:500px;" src="video/ctrip-flight-result-page.swf"
+                <embed style="width:500px; height:500px;" src="video/ctrip-flight-result-page.swf"
                        quality=high wmode=transparent type='application/x-shockwave-flash'>
             </section>
 
             <section>
                 <h4>2. 主流程动画重构</h4>
-                <p class="fragment">
+                <p>
                     主流程国内国际引入转场动画，实现更平滑的过渡效果
                 </p>
 
-                <video class="fragment" style="height:500px" src="video/ctrip-flight-transition.mov"
+                <video style="height:500px" src="video/ctrip-flight-transition.mov"
                        controls="controls" autoplay="autoplay">
                     您的浏览器不支持 video 标签。
                 </video>
@@ -222,11 +164,11 @@
 
             <section>
                 <h4>1. 国际接送机转 RN</h4>
-                <p class="fragment">
+                <p>
                     V6.20 开始，国际接送机尝试 RN
                 </p>
 
-                <ul class="fragment">
+                <ul>
                     <li>接送机填写页面</li>
                     <li>接送机地址选择页面</li>
                     <li>接送机车型选择页面</li>
@@ -253,11 +195,51 @@
                 <p>
                     提升 RN 空铁列表页的体验
                 </p>
-                <ul class="fragment">
+                <ul>
                     <li>解耦列表页各组件的接口</li>
                     <li>提示筛选组件的扩展性</li>
                     <li>优化列表页数据量巨大时的刷新速度，<br/>由 2s ~ 5s 左右降至 100ms ~ 200 ms</li>
                 </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>RCA及分享</h3>
+            </section>
+
+            <section>
+                <h4>1. Android 5.0 以上系统部分背景色异常消失</h4>
+                <p>
+                    概述：
+                    V6.6 版本，需要适配 Android 5.0 以上系统，运行发现机票页面大部分白色背景变黑
+                </p>
+
+                <p>
+                    分析及解决方法：
+                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-02/">http://shadyboss.cn/articles/android-bugee-like-problem-02/</a>
+                </p>
+            </section>
+
+            <section>
+                <h4>2. 列表页 Animation 动画残留</h4>
+                <p>
+                    概述：
+                    V6.8 版本，主流程动画重构后，填写页满仓返回列表页刷新时会有动画残留现象
+                </p>
+
+                <p>
+                    分析及解决方法：
+                    <a href="http://shadyboss.cn/articles/android-bugee-like-problem-01/">http://shadyboss.cn/articles/android-bugee-like-problem-01/</a>
+                </p>
+            </section>
+
+            <section>
+                <h4>3. Java Annotation 的介绍</h4>
+                <p>
+                    <a href="http://shadyboss.cn/articles/java-annotation-intro/">
+                        http://shadyboss.cn/articles/java-annotation-intro/</a>
+                </p>
             </section>
         </section>
 
