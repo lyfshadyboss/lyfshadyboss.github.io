@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>RN 实践分享</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="liuyifeng">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="./reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="./reveal.js/css/theme/serif.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="./reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './reveal.js/css/print/pdf.css' : './reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="./reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!--<div class="reveal" style="background-image: radial-gradient(circle farthest-corner at center, #555a5f 0%, #1c1e20 100%)">-->
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h3>RN 实践分享</h3>
+
+            <p>
+                <small>
+                    2016/11/20<br/>
+                    机票BU<br/>
+                    Android 开发工程师 刘义峰
+                </small>
+            </p>
+        </section>
+
+        <section>
+            <section>
+                <h3>工程结构</h3>
+            </section>
+
+            <section>
+                <h4>CRN</h4>
+                <p>Ctrip RN 使用了私有的 NPM : CRN，方便和 Ctrip 自己的业务整合</p>
+                <a href="http://crn.site.ctripcorp.com/">http://crn.site.ctripcorp.com/</a>
+            </section>
+
+            <section>
+                <h4>新建工程</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+#alias for cnpm
+alias cnpm="npm --registry=http://npm.dev.sh.ctripcorp.com:8001 \
+  --cache=~/.npm/.cache/cnpm \
+  --disturl=http://cnpmjs.org/dist \
+  --userconfig=~/.cnpmrc"
+                </code></pre>
+
+                <pre><code class="hljs" data-trim contenteditable>
+cnpm install -g @ctrip/crn-cli
+crn-cli init "ProjectName"
+                </code></pre>
+            </section>
+
+            <section>
+                <ul>
+                    <li>以项目划分，每个项目一个工程</li>
+                    <li>与标准的 RN 结构有细微区别，只有 RN 代码</li>
+                    <li>符合 MCD 打包的条件，主层级一般保留 index.android.js index.ios.js main.js 三个文件</li>
+                    <li>使用 CRN 的 Page 划分逻辑页面</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>project structure</h4>
+                <img src="./image/crn/project-tree-struct.png"/>
+
+                vs
+
+                <img src="./image/crn/project-tree-struct-2.png"/>
+            </section>
+
+            <section>
+                <h4>package.json</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+{
+  "name": "FlightRN",
+  "version": "1.0.0",
+  "appVersion": "6.20",
+  "private": true,
+  "scripts": {
+    "start": "crn-cli start",
+    "android": "crn-cli run-android",
+    "ios": "crn-cli run-ios"
+  },
+  "dependencies": {
+    "@ctrip/crn": "git+http://wirelesscode.ctripcorp.com/crn#rel/6.21",
+    "react": "15.2.0",
+    "react-native": "0.30.0"
+  },
+  "devDependencies": {
+  }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>运行</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+# 开启 local server
+react-native start --port 5389
+
+# 在 ctrip app 里打开链接
+http://"server_ip":5389/index.android.js?CRNModuleName="module_name"&CRNType=1
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>调试</h4>
+                <ul>
+                    <li>通过 chrome 开发者工具调试 js 代码</li>
+                    <li>通过 native IDE 调试 native 代码</li>
+                    <li>通过 gdb server & gdb 调试 jni 代码</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>业务实践和优化</h3>
+            </section>
+
+            <section>
+                <h4>RN 布局</h4>
+                <p>RN 布局和 Native 区别很大，用的是 Web 的一套布局方式：FLEX Layout <a
+                        href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">FLEX 指南</a></p>
+
+                <ul>
+                    <li>View 组件化，平衡颗粒度</li>
+                    <li>View 布局按照区域划分，平衡层次结构</li>
+                </ul>
+
+                <img src="image/crn/view-layout-01.png"/>
+            </section>
+
+            <section>
+                <img src="image/crn/view-layout-code-01.png"/>
+            </section>
+
+            <section>
+                <img src="image/crn/view-layout-code-02.png"/>
+            </section>
+
+
+            <section>
+                <h4>数据传递</h4>
+                <ul>
+                    <li>RN 页面之间，自由传递，常用 push, pop 传参</li>
+                    <li>Native 到 RN，URL Params 或者 Storage。如果是 URL 传递，还需要编码解码(比如 base64)</li>
+                    <li>RN 到 Native，调用 Native Method</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>图片资源</h4>
+                <ul>
+                    <li>uri 引用 native 图片</li>
+                    <li>打包进 rn bundle 或者放在静态资源 server(可以使用 sprites image，减小请求次数)，用 require 引用</li>
+                    <li>编码到 icon font，用 Text 引用</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>uri reference</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+source={{ uri: imageResource('flight_bg_list_pic') }}
+...
+const imageResource = (uri) => {
+    if (Platform.OS === 'ios') {
+        switch (uri) {
+        case 'flight_bg_list_pic':
+            return 'flight_bg_all_bg';
+        case 'flight_icon_tip_blus':
+            return 'flight_icon_write_infm';
+        default :
+            return '';
+        }
+    }
+
+    return uri;
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>url reference</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+source={sprites.btn_switch}
+...
+const SPRITES_URL = 'http://pages.ctrip.com/flight/rn/flight_use_car/rn_flight_use_car.png';
+const SPRITES_SIZE = { width: 294, height: 74 };
+
+const sprites = {
+    btn_switch: {
+        uri: SPRITES_URL,
+        imageSize: SPRITES_SIZE,
+        crop: {
+            top: 0, left: 0, width: 116, height: 74,
+        }
+    },
+...
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>icon font</h4>
+                <a href="http://crn.site.ctripcorp.com/icon-font-intro.html">http://crn.site.ctripcorp.com/icon-font-intro.html</a>
+            </section>
+
+            <section>
+                <h4>细节优化</h4>
+                <ul>
+                    <li>触摸点击反馈</li>
+                    <li>List View 刷新</li>
+                    <li>复杂计算延时进行</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>Touchable* 系列</h4>
+                <ul>
+                    <li>TouchableOpacity 点击改变透明度</li>
+                    <li>TouchableHighlight 类似 Android selection drawable</li>
+                    <li>TouchableWithoutFeedback 无反馈效果，较少使用</li>
+                    <li>TouchableNativeFeedback 与平台相关，较少使用</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>ListView 大量数据下，刷新缓慢</h4>
+                <p>先清空 ListView，然后重新加载</p>
+
+                <pre><code class="hljs" data-trim contenteditable>
+this.setState({
+    dataSource: this.state.dataSource.cloneWithRows([]),
+});
+
+setTimeout(() => {
+    this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(result),
+    });
+});
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>InteractionManager 可以把耗时的计算延迟执行，比如读取数据库等操作</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+InteractionManager.runAfterInteractions(() => {
+    // do something
+});
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>增强项目的工程化</h3>
+            </section>
+
+            <section>
+                <h4><a href="http://redux.js.org/">Redux</a></h4>
+                <p>Redux 是一个 predictable state manager (*Pure Function Reducer*)。<br/>
+
+                    适用于交互非常复杂的应用，对于机票 rn 页面，引入 Redux 没有太大必要，反而增加了复杂度。
+                    目前机票只有 Flight Use Car 项目用了，其他都是页面各自管理 State。
+                </p>
+
+            </section>
+
+            <section>
+                <h4><a href="http://eslint.org/">eslint</a>代码检查 </h4>
+                <ul>
+                    <li>可以自定义统一的代码风格</li>
+                    <li>自定义警告和错误规则</li>
+                    <li>配合 IDE 实时检测，实时高亮显示</li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>eslint config</h4>
+                <pre><code class="hljs" data-trim contenteditable>
+module.exports = {
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+
+    "env": {
+        "browser": true
+    },
+
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
+
+    "rules": {
+        "max-len": [2, 120],
+        "arrow-body-style": [1, "as-needed"],
+        "indent": [2, 4],
+        "no-underscore-dangle": [2, { "allowAfterThis": true }],
+
+        "react/jsx-indent": [1, 4],
+        "react/jsx-indent-props": [0],
+        "react/prop-types": [0],
+        "react/jsx-first-prop-new-line": [0],
+        "react/jsx-space-before-closing": [1],
+        "react/jsx-closing-bracket-location": [0],
+    }
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h4><a href="https://flowtype.org/">flow </a>type check</h4>
+                <p>弥补 js 弱类型，利于发现代码潜在的问题</p>
+            </section>
+        </section>
+    </div>
+
+</div>
+
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: './reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: './reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: './reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+            { src: './reveal.js/plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
